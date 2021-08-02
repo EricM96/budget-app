@@ -8,18 +8,22 @@ services:
       - MYSQL_DATABASE=budgetAppDB
     ports:
       - "3306:3306"
+
   budget-app:
     build:
       context: ./
-      dockerfile: Dockerfile
     ports:
+      - "8000:8000"
       - "8080:8080"
     depends_on:
       - budget-app-db
     environment:
+      - SERVER_PORT=8080
       - SPRING_JPA_HIBERNATE_DDL-AUTO=update
       - MYSQL_HOST=budget-app-db
       - SPRING_DATASOURCE_URL=jdbc:mysql://budget-app-db:3306/budgetAppDB
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=my-secret-pw
       - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
+    command: "java -jar /app.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
