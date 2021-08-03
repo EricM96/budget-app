@@ -6,6 +6,8 @@ import com.ericmccullough.budgetapp.services.EnvelopeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EnvelopeServiceImpl implements EnvelopeService {
     @Autowired
@@ -14,5 +16,10 @@ public class EnvelopeServiceImpl implements EnvelopeService {
     @Override
     public void saveEnvelope(Envelope envelope) {
         envelopeRepository.save(envelope);
+    }
+
+    @Override
+    public Iterable<Envelope> getEnvelopes() {
+        return envelopeRepository.findAll();
     }
 }
