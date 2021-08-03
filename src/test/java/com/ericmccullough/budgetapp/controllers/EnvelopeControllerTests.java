@@ -12,11 +12,17 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -103,5 +109,16 @@ public class EnvelopeControllerTests {
         ).andExpect(status().isOk())
                 .andExpect(jsonPath("$.balance").value("0"));
         Mockito.verify(mockEnvelopeService, times(1)).saveEnvelope(any(Envelope.class));
+    }
+
+    @Test
+    public void getEnvelopes_whenRequestIsValid_shouldReturnOk() throws Exception {
+        List<Envelope> envelopes = new ArrayList<>();
+        when(mockEnvelopeService.getEnvelopes()).thenReturn(envelopes);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/envelope")
+        ).andExpect(status().isOk());
+        Mockito.verify(mockEnvelopeService, times(1)).getEnvelopes();
     }
 }

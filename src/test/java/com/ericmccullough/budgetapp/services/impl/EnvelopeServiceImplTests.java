@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -34,5 +36,15 @@ public class EnvelopeServiceImplTests {
         envelopeService.saveEnvelope(envelope);
 
         verify(mockEnvelopeRepository, times(1)).save(envelope);
+    }
+
+    @Test
+    void getEnvelopes_callIsValid_shouldRetrieveEnvelopes() {
+        List<Envelope> envelopes = new ArrayList<>();
+        when(mockEnvelopeRepository.findAll()).thenReturn(envelopes);
+
+        envelopeService.getEnvelopes();
+
+        verify(mockEnvelopeRepository, times(1)).findAll();
     }
 }
