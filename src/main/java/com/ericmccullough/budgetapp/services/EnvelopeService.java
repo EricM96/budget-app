@@ -8,5 +8,5 @@ public interface EnvelopeService {
      * Creates and persists a new envelope
      * @param envelope Envelope to persist
      */
-    void newEnvelope(Envelope envelope);
+    void saveEnvelope(Envelope envelope);
 }

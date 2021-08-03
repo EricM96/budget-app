@@ -21,7 +21,7 @@ public class EnvelopeController {
         if (envelope.getName() == null || envelope.getName().trim().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Envelope name cannot be missing or blank");
         }
-        envelopeService.newEnvelope(envelope);
+        envelopeService.saveEnvelope(envelope);
 
         return envelope;
     }

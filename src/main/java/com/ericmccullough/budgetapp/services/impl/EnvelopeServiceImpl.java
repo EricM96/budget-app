@@ -12,7 +12,7 @@ public class EnvelopeServiceImpl implements EnvelopeService {
     private EnvelopeRepository envelopeRepository;
 
     @Override
-    public void newEnvelope(Envelope envelope) {
+    public void saveEnvelope(Envelope envelope) {
         envelopeRepository.save(envelope);
     }
 }

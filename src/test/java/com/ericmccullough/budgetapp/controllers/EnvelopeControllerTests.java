@@ -33,14 +33,14 @@ public class EnvelopeControllerTests {
     @Test
     public void createEnvelope_whenPayloadIsValid_shouldReturnOk() throws Exception {
         final String payload = "{ \"name\": \"newEnvelope\", \"balance\": \"2000.00\" }";
-        doNothing().when(mockEnvelopeService).newEnvelope(isA(Envelope.class));
+        doNothing().when(mockEnvelopeService).saveEnvelope(isA(Envelope.class));
 
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/envelope")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payload)
         ).andExpect(status().isOk());
-        Mockito.verify(mockEnvelopeService, times(1)).newEnvelope(any(Envelope.class));
+        Mockito.verify(mockEnvelopeService, times(1)).saveEnvelope(any(Envelope.class));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class EnvelopeControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payload)
         ).andExpect(status().isBadRequest());
-        Mockito.verify(mockEnvelopeService, times(0)).newEnvelope(any(Envelope.class));
+        Mockito.verify(mockEnvelopeService, times(0)).saveEnvelope(any(Envelope.class));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class EnvelopeControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payload)
         ).andExpect(status().isBadRequest());
-        Mockito.verify(mockEnvelopeService, never()).newEnvelope(any(Envelope.class));
+        Mockito.verify(mockEnvelopeService, never()).saveEnvelope(any(Envelope.class));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class EnvelopeControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payload)
         ).andExpect(status().isBadRequest());
-        Mockito.verify(mockEnvelopeService, never()).newEnvelope(any(Envelope.class));
+        Mockito.verify(mockEnvelopeService, never()).saveEnvelope(any(Envelope.class));
     }
 
     @Test
@@ -88,13 +88,13 @@ public class EnvelopeControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payload)
         ).andExpect(status().isBadRequest());
-        Mockito.verify(mockEnvelopeService, never()).newEnvelope(any(Envelope.class));
+        Mockito.verify(mockEnvelopeService, never()).saveEnvelope(any(Envelope.class));
     }
 
     @Test
     public void createEnvelope_whenPayloadIsMissingBalance_shouldHaveBalanceOfZero() throws Exception {
         final String payload = "{ \"name\": \"newEnvelope\" }";
-        doNothing().when(mockEnvelopeService).newEnvelope(isA(Envelope.class));
+        doNothing().when(mockEnvelopeService).saveEnvelope(isA(Envelope.class));
 
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/envelope")
@@ -102,6 +102,6 @@ public class EnvelopeControllerTests {
                 .content(payload)
         ).andExpect(status().isOk())
                 .andExpect(jsonPath("$.balance").value("0"));
-        Mockito.verify(mockEnvelopeService, times(1)).newEnvelope(any(Envelope.class));
+        Mockito.verify(mockEnvelopeService, times(1)).saveEnvelope(any(Envelope.class));
     }
 }
