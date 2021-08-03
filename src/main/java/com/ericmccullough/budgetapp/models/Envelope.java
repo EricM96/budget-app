@@ -1,5 +1,6 @@
 package com.ericmccullough.budgetapp.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,9 +14,10 @@ public class Envelope {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(nullable = false)
     private String name;
 
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 
     public Integer getId() {
         return id;
